@@ -43,8 +43,8 @@ public class UIEvents : MonoBehaviour
         mainMenu.gameObject.SetActive(false);
     }
 
-    public void SetSchool(string name) {
-        gameData.SetCurrentSchool(name);
+    public void SetSchool(School school) {
+        gameData.SetCurrentSchool(school);
         ShowSchoolRoster();
     }
 }

@@ -45,7 +45,7 @@ public class SchoolChooser : MonoBehaviour
         ShowSchool();
     }
 
-    void SelectSchool(string name) {
-        uIEvents.SetSchool(name);
+    public void ChooseCurrentSchool() {
+        uIEvents.SetSchool(gameData.allSchools[currentSchoolIndex]);
     }
 }

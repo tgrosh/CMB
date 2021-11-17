@@ -20,61 +20,61 @@ public class GameData : MonoBehaviour
         return allSchools.Find(school => school.name == name);
     }
 
-    public void SetCurrentSchool(string name) {
-        currentSchool = GetSchool(name);
+    public void SetCurrentSchool(School currentSchool) {
+        this.currentSchool = currentSchool;
     }
 
     public void GenerateConferencesAndSchools() {
         conferences.Add(new Conference() { 
             name = "Southern Coast Conference", 
             schools = new List<School>() {
-                new School("Carolina Univeristy", new Mascot("Runners"), GenerateRosters(), Color.cyan, Color.black),
-                new School("Peach State", new Mascot("Panthers"), GenerateRosters(), Color.magenta, Color.black),
-                new School("Gold Coast International", new Mascot("Dolphins"), GenerateRosters(), Color.yellow, Color.black),
-                new School("Tide University", new Mascot("Pods"), GenerateRosters(), Color.red, Color.black),
-                new School("Alabama Tech", new Mascot("Rockets"), GenerateRosters(), Color.red, Color.black),
-                new School("Parrish College", new Mascot("Seawalls"), GenerateRosters(), Color.magenta, Color.black),
-                new School("Texas Online", new Mascot("Cowboys"), GenerateRosters(), Color.blue, Color.black),
-                new School("Tampa State", new Mascot("Hurricanes"), GenerateRosters(), Color.cyan, Color.black),
+                new School("Carolina Univeristy", new Mascot("Runners", "UI_Icon_Trophy"), GenerateRosters(), Color.cyan, Color.black),
+                new School("Peach State", new Mascot("Panthers", "UI_Icon_Paw"), GenerateRosters(), Color.magenta, Color.black),
+                new School("Gold Coast International", new Mascot("Dolphins", "UI_Icon_Skull"), GenerateRosters(), Color.yellow, Color.black),
+                new School("Tide University", new Mascot("Pods", "UI_Icon_Attack"), GenerateRosters(), Color.red, Color.black),
+                new School("Alabama Tech", new Mascot("Rockets", "UI_Icon_Fire"), GenerateRosters(), Color.red, Color.black),
+                new School("Parrish College", new Mascot("Seawalls", "UI_Icon_CardClubs"), GenerateRosters(), Color.magenta, Color.black),
+                new School("Texas Online", new Mascot("Cowboys", "UI_Icon_InvHelmet"), GenerateRosters(), Color.blue, Color.black),
+                new School("Tampa State", new Mascot("Hurricanes", "UI_Icon_Visible"), GenerateRosters(), Color.cyan, Color.black),
             }
         });
         conferences.Add(new Conference() { 
             name = "Eastern Colonies Conference",
             schools = new List<School>() {
-                new School("Roanoke University", new Mascot("Minutemen"), GenerateRosters(), Color.red, Color.black),
-                new School("Potomac Tech", new Mascot("Blue Crabs"), GenerateRosters(), Color.yellow, Color.black),
-                new School("Three Rivers University", new Mascot("Steelmakers"), GenerateRosters(), Color.green, Color.black),
-                new School("Upstate College", new Mascot("Mountaineers"), GenerateRosters(), Color.blue, Color.black),
-                new School("Atlantic City Community College", new Mascot("Sharks"), GenerateRosters(), Color.magenta, Color.black),
-                new School("Salem Methodist College", new Mascot("Colonists"), GenerateRosters(), Color.black, Color.white),
-                new School("Hartford University", new Mascot("Whalers"), GenerateRosters(), Color.cyan, Color.black),
-                new School("Yonkers University", new Mascot("Bulldogs"), GenerateRosters(), Color.green, Color.black),
+                new School("Roanoke University", new Mascot("Minutemen", "UI_Icon_Attack"), GenerateRosters(), Color.red, Color.black),
+                new School("Potomac Tech", new Mascot("Blue Crabs", "UI_Icon_Skull"), GenerateRosters(), Color.yellow, Color.black),
+                new School("Three Rivers University", new Mascot("Steelmakers", "UI_Icon_Gem"), GenerateRosters(), Color.green, Color.black),
+                new School("Upstate College", new Mascot("Mountaineers", "UI_Icon_BoneBroken"), GenerateRosters(), Color.blue, Color.black),
+                new School("Atlantic City Community College", new Mascot("Sharks", "UI_Icon_Camera"), GenerateRosters(), Color.magenta, Color.black),
+                new School("Salem Methodist College", new Mascot("Colonists", "UI_Icon_FaithChristianity"), GenerateRosters(), Color.black, Color.white),
+                new School("Hartford University", new Mascot("Whalers", "UI_Icon_Archer"), GenerateRosters(), Color.cyan, Color.black),
+                new School("Yonkers University", new Mascot("Bulldogs", "UI_Icon_Aim"), GenerateRosters(), Color.green, Color.black),
             }
         });
         conferences.Add(new Conference() { 
             name = "Big Sun Conference",
             schools = new List<School>() {
-                new School("Silicon Valley Tech", new Mascot("Chips"), GenerateRosters(), Color.green, Color.black),
-                new School("San Andreas University", new Mascot("Quakes"), GenerateRosters(), Color.red, Color.black),
-                new School("Bay Area College", new Mascot("Gold Diggers"), GenerateRosters(), Color.red, Color.black),
-                new School("Grand Canyon University", new Mascot("Spelunkers"), GenerateRosters(), Color.grey, Color.black),
-                new School("Sin City Community College", new Mascot("Showmen"), GenerateRosters(), Color.magenta, Color.black),
-                new School("Lone Star University", new Mascot("Cruisers"), GenerateRosters(), Color.red, Color.black),
-                new School("Albequerque A & T", new Mascot("Cactus"), GenerateRosters(), Color.red, Color.black),
-                new School("Baja University", new Mascot("Desert Eagles"), GenerateRosters(), Color.green, Color.black),
+                new School("Silicon Valley Tech", new Mascot("Chips", "UI_Icon_DeviceComputer"), GenerateRosters(), Color.green, Color.black),
+                new School("San Andreas University", new Mascot("Quakes", "UI_Icon_Energy"), GenerateRosters(), Color.red, Color.black),
+                new School("Bay Area College", new Mascot("Gold Diggers", "UI_Icon_Cash"), GenerateRosters(), Color.red, Color.black),
+                new School("Grand Canyon University", new Mascot("Spelunkers", "UI_Icon_Gem"), GenerateRosters(), Color.grey, Color.black),
+                new School("Sin City Community College", new Mascot("Showmen", "UI_Icon_Camera"), GenerateRosters(), Color.magenta, Color.black),
+                new School("Lone Star University", new Mascot("Cruisers", "UI_Icon_Star"), GenerateRosters(), Color.red, Color.black),
+                new School("Albequerque A & T", new Mascot("Cactus", "UI_Icon_Fire"), GenerateRosters(), Color.red, Color.black),
+                new School("Baja University", new Mascot("Desert Eagles", "UI_Icon_Bomb"), GenerateRosters(), Color.green, Color.black),
             }
         });
         conferences.Add(new Conference() { 
             name = "Great Northern Conference",
             schools = new List<School>() {
-                new School("Wright Brothers College", new Mascot("Pilots"), GenerateRosters(), Color.blue, Color.black),
-                new School("Yooper University", new Mascot("Snow Devils"), GenerateRosters(), Color.green, Color.black),
-                new School("Wrigleyville Community College", new Mascot("Grabowskis"), GenerateRosters(), Color.blue, Color.black),
-                new School("Kansas City Tech", new Mascot("Chieftains"), GenerateRosters(), Color.cyan, Color.black),
-                new School("Omaha College", new Mascot("Reubens"), GenerateRosters(), Color.white, Color.black),
-                new School("Olympic University", new Mascot("Sea Bass"), GenerateRosters(), Color.blue, Color.black),
-                new School("Oregon Trail University", new Mascot("Explorers"), GenerateRosters(), Color.cyan, Color.black),
-                new School("Grand Forks University", new Mascot("Loners"), GenerateRosters(), Color.red, Color.black),
+                new School("Wright Brothers College", new Mascot("Pilots", "UI_Icon_Paperplane"), GenerateRosters(), Color.blue, Color.black),
+                new School("Yooper University", new Mascot("Snow Devils", "UI_Icon_Frost"), GenerateRosters(), Color.green, Color.black),
+                new School("Wrigleyville Community College", new Mascot("Grabowskis", "UI_Icon_Sun"), GenerateRosters(), Color.blue, Color.black),
+                new School("Kansas City Tech", new Mascot("Chieftains", "UI_Icon_Crown"), GenerateRosters(), Color.cyan, Color.black),
+                new School("Omaha College", new Mascot("Reubens", "UI_Icon_Visible"), GenerateRosters(), Color.white, Color.black),
+                new School("Olympic University", new Mascot("Sea Bass", "UI_Icon_Archer"), GenerateRosters(), Color.blue, Color.black),
+                new School("Oregon Trail University", new Mascot("Explorers", "UI_Icon_BoneBroken"), GenerateRosters(), Color.cyan, Color.black),
+                new School("Grand Forks University", new Mascot("Loners", "UI_Icon_InvHelmet"), GenerateRosters(), Color.red, Color.black),
             }
         });
     }
