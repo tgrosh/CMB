@@ -8,10 +8,8 @@ public class RosterViewer : MonoBehaviour
     public PlayerRow playerRowPrefab;
     public GameData gameData;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        FillList();
+    private void OnEnable() {
+        FillList();        
     }
 
     void FillList() {
