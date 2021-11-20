@@ -108,16 +108,10 @@ public class GameData : MonoBehaviour
         List<Player> players = new List<Player>();
         
         for (int x=0; x< count; x++) {
-            players.Add(GetPlayer(position));
+            players.Add(new Player(position));
         }
         
         return players;
     }
 
-    public Player GetPlayer(PlayerPosition position) {
-        System.Random rand = new System.Random(DateTime.Now.Millisecond + DateTime.Now.Second);
-        RandomName nameGen = new RandomName(rand);
-
-        return new Player(nameGen.Generate(Sex.Male), position);
-    }
 }

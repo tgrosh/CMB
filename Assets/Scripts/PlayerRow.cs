@@ -10,7 +10,7 @@ public class PlayerRow : MonoBehaviour
     public void SetHeader() {
         CreateColumn("Pos");
         CreateColumn("Name", 200, TMPro.TextAlignmentOptions.Left);
-        foreach (PlayerStat playerStat in new Player("", PlayerPosition.C).stats) {
+        foreach (PlayerStat playerStat in new Player(PlayerPosition.C).stats) {
             CreateColumn(playerStat.stat.abbreviation.ToUpper());
         }
         GetComponent<Image>().color = new Color(0,0,0,0);

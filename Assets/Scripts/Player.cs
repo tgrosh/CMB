@@ -1,17 +1,24 @@
 using System;
-using System.Collections.Generic;
 
 public class Player
 {
     public string name;
     public PlayerPosition position;
+    public string origin;
+    public int year;
+    public int age;
+    public bool hasScholarship;
+    public bool isRedshirt;
     public PlayerStats stats;
     System.Random rand = new System.Random(DateTime.Now.Millisecond + DateTime.Now.Second);
 
-    public Player(string name, PlayerPosition position)
+    public Player(PlayerPosition position)
     {
-        this.name = name;
+        this.name = new RandomName(rand).Generate(Sex.Male);
+        this.year = 0;
+        this.age = rand.Next(18, 20);
         this.position = position;
+        this.origin = RandomCity.Generate();
         this.stats = new PlayerStats();
         GenerateStats();
     }
