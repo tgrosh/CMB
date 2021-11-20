@@ -9,13 +9,25 @@ public class RosterViewer : MonoBehaviour
     public GameData gameData;
 
     private void OnEnable() {
-        FillList();        
+        ClearList();
+        FillList();
     }
 
-    void FillList() {
+    void FillList() {        
+        PlayerRow playerRow = Instantiate(playerRowPrefab, content);
+        playerRow.SetHeader();
+        int rowIndex = 0;
+
         foreach (Player player in gameData.currentSchool.players) {
-            PlayerRow playerRow = Instantiate(playerRowPrefab, content);
-            playerRow.SetPlayer(player);
+            playerRow = Instantiate(playerRowPrefab, content);
+            playerRow.SetPlayer(player, rowIndex);
+            rowIndex++;
+        }
+    }
+
+    void ClearList() {
+        foreach (Transform child in content.transform) {
+            Destroy(child.gameObject);
         }
     }
 }

@@ -118,33 +118,6 @@ public class GameData : MonoBehaviour
         System.Random rand = new System.Random(DateTime.Now.Millisecond + DateTime.Now.Second);
         RandomName nameGen = new RandomName(rand);
 
-        return new Player(nameGen.Generate(Sex.Male), position, GeneratePlayerStats(position));
-    }
-
-    public PlayerStats GeneratePlayerStats(PlayerPosition position) {
-        PlayerStats playerStats = new PlayerStats();
-
-        //generate standard stats
-        playerStats.Add(new PlayerStat(Stat.Agility, GenerateStatValue()));
-        playerStats.Add(new PlayerStat(Stat.Injury, GenerateStatValue()));
-        playerStats.Add(new PlayerStat(Stat.Intelligence, GenerateStatValue()));
-        playerStats.Add(new PlayerStat(Stat.Speed, GenerateStatValue()));
-        playerStats.Add(new PlayerStat(Stat.Strength, GenerateStatValue()));
-        
-        switch (position.abbreviation) {
-            case PlayerPositionAbbreviation.QB: {
-                //override stats by position here
-                playerStats.GetStat(Stat.Strength).value = GenerateStatValue(62, 75);
-                playerStats.GetStat(Stat.Intelligence).value = GenerateStatValue(75, 95);
-                break;
-            }
-        }
-
-        return playerStats;
-    }
-
-    public int GenerateStatValue(int minValue = 62, int maxValue = 92) {
-
-        return rand.Next(minValue, maxValue);
+        return new Player(nameGen.Generate(Sex.Male), position);
     }
 }
