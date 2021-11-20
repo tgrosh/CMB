@@ -14,7 +14,7 @@ public class Player
 
     public Player(PlayerPosition position)
     {
-        this.name = new RandomName(rand).Generate(Sex.Male);
+        this.name = RandomName.Generate(Sex.Male);
         this.year = 0;
         this.age = rand.Next(18, 20);
         this.position = position;
