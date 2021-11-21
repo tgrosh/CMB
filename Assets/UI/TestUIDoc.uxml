@@ -1,0 +1,5 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="BackgroundPanel" style="height: 100%; width: 100%; background-color: rgb(255, 255, 255); background-image: url(&apos;/Assets/Images/hexbackground.jpg&apos;); -unity-background-image-tint-color: rgba(255, 255, 255, 0.18);">
+        <ui:Label text="University School Name" display-tooltip-when-elided="true" style="-unity-font: none; -unity-font-definition: url(&apos;/Assets/Fonts/University SDF 1.asset&apos;);" />
+    </ui:VisualElement>
+</ui:UXML>
