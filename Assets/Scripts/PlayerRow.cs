@@ -10,6 +10,7 @@ public class PlayerRow : MonoBehaviour
     public void SetHeader() {
         CreateColumn("Pos");
         CreateColumn("Name", 200, TMPro.TextAlignmentOptions.Left);
+        CreateColumn("OVR", 200);
         foreach (PlayerStat playerStat in new Player(PlayerPosition.C).stats) {
             CreateColumn(playerStat.stat.abbreviation.ToUpper());
         }
@@ -19,6 +20,7 @@ public class PlayerRow : MonoBehaviour
     public void SetPlayer(Player player, int rowIndex) {
         CreateColumn(player.position.abbreviation.ToString());
         CreateColumn(player.name, 200, TMPro.TextAlignmentOptions.Left);
+        CreateColumn(player.stats.overall.ToString());
 
         foreach (PlayerStat playerStat in player.stats) {
             CreateColumn(playerStat.value.ToString());

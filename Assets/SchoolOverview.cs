@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +14,8 @@ public class SchoolOverview : MonoBehaviour
     public Image schoolMascotLogo;
     public Image schoolMascotLogoBackground;
     public Image background;
+    public Transform topPlayersContainer;
+    public PlayerGrade playerGradePrefab;
     
     private void OnEnable() {
         if (this.gameData.currentSchool == null) return;
@@ -27,6 +31,15 @@ public class SchoolOverview : MonoBehaviour
 
         this.schoolName.color = school.secondaryColor;
         this.schoolMascotName.color = school.primaryColor;
+
+        foreach (Player player in getTopPlayers(school)) {
+            PlayerGrade playerGrade = Instantiate<PlayerGrade>(playerGradePrefab, topPlayersContainer);
+            playerGrade.SetPlayer(player);
+        }
     }
-    
+
+    private List<Player> getTopPlayers(School school)
+    {
+        return school.players.OrderByDescending(player => player.stats.overall).Take<Player>(6).ToList<Player>();
+    }
 }

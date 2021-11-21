@@ -10,6 +10,7 @@ public class Player
     public bool hasScholarship;
     public bool isRedshirt;
     public PlayerStats stats;
+
     System.Random rand = new System.Random(DateTime.Now.Millisecond + DateTime.Now.Second);
 
     public Player(PlayerPosition position)
