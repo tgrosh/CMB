@@ -40,6 +40,6 @@ public class SchoolOverview : MonoBehaviour
 
     private List<Player> getTopPlayers(School school)
     {
-        return school.players.OrderByDescending(player => player.stats.overall).Take<Player>(6).ToList<Player>();
+        return school.players.OrderByDescending(player => player.importantStats.overall).Take<Player>(6).ToList<Player>();
     }
 }

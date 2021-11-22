@@ -3,6 +3,14 @@ using System.Linq;
 
 public class PlayerStats: List<PlayerStat>
 {
+    public PlayerStats(IEnumerable<PlayerStat> collection) : base(collection)
+    {
+    }
+
+    public PlayerStats()
+    {
+    }
+
     public PlayerStat GetStat(Stat stat) {
         return this.Find(playerStat => playerStat.stat == stat);
     }
@@ -73,5 +81,20 @@ public class PlayerStats: List<PlayerStat>
         }
 
         return letter;
+    }
+
+    public override bool Equals(object obj)
+    {
+        return base.Equals(obj);
+    }
+
+    public override int GetHashCode()
+    {
+        return base.GetHashCode();
+    }
+
+    public override string ToString()
+    {
+        return base.ToString();
     }
 }

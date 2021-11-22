@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class Player
 {
@@ -11,14 +12,19 @@ public class Player
     public bool hasScholarship;
     public bool isRedshirt;
     public PlayerStats stats;
+    public PlayerStats importantStats {
+        get {
+            return new PlayerStats(stats.FindAll(stat => position.importantStats.Contains(stat.stat)));
+        }
+    }
 
-    System.Random rand = new System.Random(DateTime.Now.Millisecond + DateTime.Now.Second);
+    static System.Random rand = new System.Random(DateTime.Now.Millisecond + DateTime.Now.Second);
 
     public Player(PlayerPosition position)
     {
         this.name = RandomName.Generate(Sex.Male);
         this.year = 0;
-        this.age = rand.Next(18, 20);
+        this.age = Player.rand.Next(18, 20);
         this.position = position;
         this.origin = RandomCity.Generate();
         this.stats = new PlayerStats();
@@ -27,8 +33,7 @@ public class Player
 
     private int GenerateStatValue(int minValue = 65, int maxValue = 92)
     {
-
-        return rand.Next(minValue, maxValue);
+        return Player.rand.Next(minValue, maxValue);
     }
 
     private void IncreaseStatValues(List<Stat> stats)
