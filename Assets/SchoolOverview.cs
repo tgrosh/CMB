@@ -40,9 +40,9 @@ public class SchoolOverview : MonoBehaviour
             playerGrade.SetPlayer(player);
         }
 
-        this.offGrade.text = this.getOverallOffense(school).ToString();
-        this.defGrade.text = this.getOverallDefense(school).ToString();
-        this.overallGrade.text = this.getOverall(school).ToString();
+        this.offGrade.text = convertToLetterGrade(this.getOverallOffense(school));
+        this.defGrade.text = convertToLetterGrade(this.getOverallDefense(school));
+        this.overallGrade.text = convertToLetterGrade(this.getOverall(school));
     }
 
     private List<Player> getTopPlayers(School school)
