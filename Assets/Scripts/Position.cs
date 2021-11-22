@@ -3,17 +3,19 @@ using System.Collections.Generic;
 public class PlayerPosition
 {
     public string name;
+    public PositionGroup positionGroup;
     public PlayerPositionAbbreviation abbreviation;
     public List<Stat> importantStats = new List<Stat>();
     public List<Stat> lowerStats = new List<Stat>();
 
-    public PlayerPosition(string name, PlayerPositionAbbreviation abbreviation)
+    public PlayerPosition(string name, PlayerPositionAbbreviation abbreviation, PositionGroup positionGroup)
     {
         this.name = name;
         this.abbreviation = abbreviation;
+        this.positionGroup = positionGroup;
     }
 
-    public PlayerPosition(string name, PlayerPositionAbbreviation abbreviation, List<Stat> importantStats, List<Stat> lowerStats) : this(name, abbreviation)
+    public PlayerPosition(string name, PlayerPositionAbbreviation abbreviation, PositionGroup positionGroup, List<Stat> importantStats, List<Stat> lowerStats) : this(name, abbreviation, positionGroup)
     {
         this.importantStats = importantStats;
         this.lowerStats = lowerStats;
@@ -62,7 +64,6 @@ public class PlayerPosition
             };
         }
     }
-
     static List<Stat> nonKStats
     {
         get
@@ -73,7 +74,7 @@ public class PlayerPosition
         }
     }
 
-    public static PlayerPosition QB = new PlayerPosition("Quarterback", PlayerPositionAbbreviation.QB, new List<Stat>() {
+    public static PlayerPosition QB = new PlayerPosition("Quarterback", PlayerPositionAbbreviation.QB, PositionGroup.Offense, new List<Stat>() {
                 Stat.Playaction,
                 Stat.ThrowingOnTheRun,
                 Stat.ThrowPower,
@@ -82,7 +83,7 @@ public class PlayerPosition
                 Stat.MediumThrowAccuracy,
                 Stat.Awareness
             }, defStats);
-    public static PlayerPosition HB = new PlayerPosition("Halfback", PlayerPositionAbbreviation.HB, new List<Stat>() {
+    public static PlayerPosition HB = new PlayerPosition("Halfback", PlayerPositionAbbreviation.HB, PositionGroup.Offense, new List<Stat>() {
                 Stat.Carrying,
                 Stat.Acceleration,
                 Stat.Agility,
@@ -91,13 +92,13 @@ public class PlayerPosition
                 Stat.Elusiveness,
                 Stat.KickReturn
             }, defStats);
-    public static PlayerPosition FB = new PlayerPosition("Fullback", PlayerPositionAbbreviation.FB, new List<Stat>() {
+    public static PlayerPosition FB = new PlayerPosition("Fullback", PlayerPositionAbbreviation.FB, PositionGroup.Offense, new List<Stat>() {
                 Stat.Carrying,
                 Stat.LeadBlock,
                 Stat.ShortRouteRunning,
                 Stat.BreakTackle
             }, defStats);
-    public static PlayerPosition WR = new PlayerPosition("Wide Receiver", PlayerPositionAbbreviation.WR, new List<Stat>() {
+    public static PlayerPosition WR = new PlayerPosition("Wide Receiver", PlayerPositionAbbreviation.WR, PositionGroup.Offense, new List<Stat>() {
                 Stat.Catching,
                 Stat.CatchInTraffic,
                 Stat.DeepRouteRunning,
@@ -109,7 +110,7 @@ public class PlayerPosition
                 Stat.Speed,
                 Stat.KickReturn
             }, defStats);
-    public static PlayerPosition TE = new PlayerPosition("Tight End", PlayerPositionAbbreviation.TE, new List<Stat>() {
+    public static PlayerPosition TE = new PlayerPosition("Tight End", PlayerPositionAbbreviation.TE, PositionGroup.Offense, new List<Stat>() {
                 Stat.Catching,
                 Stat.CatchInTraffic,
                 Stat.ShortRouteRunning,
@@ -120,38 +121,38 @@ public class PlayerPosition
                 Stat.RunBlock,
                 Stat.PassBlock
             }, defStats);
-    public static PlayerPosition T = new PlayerPosition("Tackle", PlayerPositionAbbreviation.T, new List<Stat>() {
+    public static PlayerPosition T = new PlayerPosition("Tackle", PlayerPositionAbbreviation.T, PositionGroup.Offense, new List<Stat>() {
                 Stat.Strength,
                 Stat.ImpactBlocking,
                 Stat.RunBlock,
                 Stat.PassBlock
             }, defStats);
-    public static PlayerPosition G = new PlayerPosition("Guard", PlayerPositionAbbreviation.G, new List<Stat>() {
+    public static PlayerPosition G = new PlayerPosition("Guard", PlayerPositionAbbreviation.G, PositionGroup.Offense, new List<Stat>() {
                 Stat.Strength,
                 Stat.ImpactBlocking,
                 Stat.RunBlock,
                 Stat.PassBlock
             }, defStats);
-    public static PlayerPosition C = new PlayerPosition("Center", PlayerPositionAbbreviation.C, new List<Stat>() {
+    public static PlayerPosition C = new PlayerPosition("Center", PlayerPositionAbbreviation.C, PositionGroup.Offense, new List<Stat>() {
                 Stat.Strength,
                 Stat.ImpactBlocking,
                 Stat.RunBlock,
                 Stat.PassBlock
             }, defStats);
-    public static PlayerPosition DE = new PlayerPosition("Defensive End", PlayerPositionAbbreviation.DE, new List<Stat>() {
+    public static PlayerPosition DE = new PlayerPosition("Defensive End", PlayerPositionAbbreviation.DE, PositionGroup.Defense, new List<Stat>() {
                 Stat.Strength,
                 Stat.BlockShedding,
                 Stat.Tackle,
                 Stat.HitPower,
                 Stat.Acceleration
             }, offStats);
-    public static PlayerPosition DT = new PlayerPosition("Defensive Tackle", PlayerPositionAbbreviation.DT, new List<Stat>() {
+    public static PlayerPosition DT = new PlayerPosition("Defensive Tackle", PlayerPositionAbbreviation.DT, PositionGroup.Defense, new List<Stat>() {
                 Stat.Strength,
                 Stat.BlockShedding,
                 Stat.Tackle,
                 Stat.HitPower
             }, offStats);
-    public static PlayerPosition ILB = new PlayerPosition("Inside Linebacker", PlayerPositionAbbreviation.ILB, new List<Stat>() {
+    public static PlayerPosition ILB = new PlayerPosition("Inside Linebacker", PlayerPositionAbbreviation.ILB, PositionGroup.Defense, new List<Stat>() {
                 Stat.Strength,
                 Stat.BlockShedding,
                 Stat.Tackle,
@@ -159,7 +160,7 @@ public class PlayerPosition
                 Stat.Acceleration,
                 Stat.PlayRecognition
             }, offStats);
-    public static PlayerPosition OLB = new PlayerPosition("Outside Linebacker", PlayerPositionAbbreviation.OLB, new List<Stat>() {
+    public static PlayerPosition OLB = new PlayerPosition("Outside Linebacker", PlayerPositionAbbreviation.OLB, PositionGroup.Defense, new List<Stat>() {
                 Stat.Strength,
                 Stat.BlockShedding,
                 Stat.Tackle,
@@ -167,21 +168,21 @@ public class PlayerPosition
                 Stat.Acceleration,
                 Stat.PlayRecognition
             }, offStats);
-    public static PlayerPosition CB = new PlayerPosition("Cornerback", PlayerPositionAbbreviation.CB, new List<Stat>() {
+    public static PlayerPosition CB = new PlayerPosition("Cornerback", PlayerPositionAbbreviation.CB, PositionGroup.Defense, new List<Stat>() {
                 Stat.Speed,
                 Stat.Agility,
                 Stat.ManCoverage,
                 Stat.ZoneCoverage,
                 Stat.Acceleration
             }, offStats);
-    public static PlayerPosition FS = new PlayerPosition("Free Safety", PlayerPositionAbbreviation.FS, new List<Stat>() {
+    public static PlayerPosition FS = new PlayerPosition("Free Safety", PlayerPositionAbbreviation.FS, PositionGroup.Defense, new List<Stat>() {
                 Stat.Agility,
                 Stat.ZoneCoverage,
                 Stat.Acceleration,
                 Stat.Tackle,
                 Stat.PlayRecognition
             }, offStats);
-    public static PlayerPosition SS = new PlayerPosition("Strong Safety", PlayerPositionAbbreviation.SS, new List<Stat>() {
+    public static PlayerPosition SS = new PlayerPosition("Strong Safety", PlayerPositionAbbreviation.SS, PositionGroup.Defense, new List<Stat>() {
                 Stat.Agility,
                 Stat.ZoneCoverage,
                 Stat.Acceleration,
@@ -189,11 +190,11 @@ public class PlayerPosition
                 Stat.HitPower,
                 Stat.PlayRecognition
             }, offStats);
-    public static PlayerPosition K = new PlayerPosition("Kicker", PlayerPositionAbbreviation.K, new List<Stat>() {
+    public static PlayerPosition K = new PlayerPosition("Kicker", PlayerPositionAbbreviation.K, PositionGroup.SpecialTeams, new List<Stat>() {
                 Stat.KickAccuracy,
                 Stat.KickPower
             }, nonKStats);
-    public static PlayerPosition P = new PlayerPosition("Punter", PlayerPositionAbbreviation.P, new List<Stat>() {
+    public static PlayerPosition P = new PlayerPosition("Punter", PlayerPositionAbbreviation.P, PositionGroup.SpecialTeams, new List<Stat>() {
                 Stat.KickAccuracy,
                 Stat.KickPower
             }, nonKStats);
