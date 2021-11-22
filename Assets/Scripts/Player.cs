@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 public class Player
 {
@@ -23,12 +24,37 @@ public class Player
         GenerateStats();
     }
 
-    private int GenerateStatValue(int minValue = 62, int maxValue = 92) {
+    private int GenerateStatValue(int minValue = 65, int maxValue = 92)
+    {
 
         return rand.Next(minValue, maxValue);
     }
-    
-    public void GenerateStats() {
+
+    private void IncreaseStatValues(List<Stat> stats)
+    {
+        foreach (Stat stat in stats)
+        {
+            this.stats.GetStat(stat).value = GenerateStatValue(75, 95);
+        }
+    }
+
+    private void DecreaseStatValues(List<Stat> stats)
+    {
+        foreach (Stat stat in stats)
+        {
+            this.stats.GetStat(stat).value = GenerateStatValue(62, 75);
+        }
+    }
+
+    public void GenerateStats()
+    {
+        GenerateBaseStats();
+        IncreaseStatValues(position.importantStats);
+        DecreaseStatValues(position.lowerStats);
+    }
+
+    private void GenerateBaseStats()
+    {
         stats.Add(new PlayerStat(Stat.Speed, GenerateStatValue()));
         stats.Add(new PlayerStat(Stat.Acceleration, GenerateStatValue()));
         stats.Add(new PlayerStat(Stat.Agility, GenerateStatValue()));
@@ -65,14 +91,5 @@ public class Player
         stats.Add(new PlayerStat(Stat.KickAccuracy, GenerateStatValue()));
         stats.Add(new PlayerStat(Stat.KickPower, GenerateStatValue()));
         stats.Add(new PlayerStat(Stat.KickReturn, GenerateStatValue()));
-
-        switch (position.abbreviation) {
-            case PlayerPositionAbbreviation.QB: {
-                //override stats by position here
-                stats.GetStat(Stat.Strength).value = GenerateStatValue(62, 75);
-                stats.GetStat(Stat.Awareness).value = GenerateStatValue(75, 95);
-                break;
-            }
-        }
     }
 }
