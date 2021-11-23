@@ -1,20 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class PlayerRow : MonoBehaviour
 {
     public GameObject dataColumnPrefab;
 
+    public UnityEvent<Stat, string> sortEvent;
+
     public void SetHeader()
     {
-        CreateColumn("Pos");
-        CreateColumn("Name", 160, TMPro.TextAlignmentOptions.Left);
-        CreateColumn("OVR");
+        sortEvent = new UnityEvent<Stat, string>();
+
+        CreateColumn("Pos", action: () => sortEvent.Invoke(null, "position"));
+        CreateColumn("Name", 160, TMPro.TextAlignmentOptions.Left, action: () => sortEvent.Invoke(null, "name"));
+        CreateColumn("OVR", action: () => sortEvent.Invoke(null, "stats.overall"));
         foreach (PlayerStat playerStat in new Player(PlayerPosition.C).stats)
         {
-            CreateColumn(playerStat.stat.abbreviation.ToUpper());
+            CreateColumn(playerStat.stat.abbreviation.ToUpper(), action: () => sortEvent.Invoke(playerStat.stat, ""));
         }
         GetComponent<Image>().color = new Color(0, 0, 0, 0);
     }
@@ -36,7 +39,7 @@ public class PlayerRow : MonoBehaviour
         }
     }
 
-    void CreateColumn(string value, float width = 44, TMPro.TextAlignmentOptions alignment = TMPro.TextAlignmentOptions.Center)
+    void CreateColumn(string value, float width = 44, TMPro.TextAlignmentOptions alignment = TMPro.TextAlignmentOptions.Center, UnityAction action = null)
     {
         GameObject statColumn = Instantiate(dataColumnPrefab, transform);
         TMPro.TextMeshProUGUI colText = statColumn.GetComponent<TMPro.TextMeshProUGUI>();
@@ -44,5 +47,13 @@ public class PlayerRow : MonoBehaviour
         colText.alignment = alignment;
         RectTransform rect = statColumn.GetComponent<RectTransform>();
         rect.sizeDelta = new Vector2(width, rect.sizeDelta.y);
+        if (action != null)
+        {
+            Button button = statColumn.GetComponent<Button>();
+            button.enabled = true;
+            button.onClick.AddListener(() => action());
+        }
+
     }
+
 }
