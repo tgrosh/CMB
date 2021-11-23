@@ -12,6 +12,7 @@ public class RosterViewer : MonoBehaviour
     List<Player> sortedPlayers;
 
     bool currentSortDescending = false;
+    object currentSortColumn;
 
     private void OnEnable()
     {
@@ -43,14 +44,20 @@ public class RosterViewer : MonoBehaviour
     {
         if (stat != null)
         {
+            if (currentSortColumn == null || ((Stat)currentSortColumn).abbreviation != stat.abbreviation) currentSortDescending = false;
+            currentSortColumn = stat;
             SortListByStat(stat);
         }
         else if (!string.IsNullOrEmpty(fieldName))
         {
+            if (currentSortColumn == null || currentSortColumn.GetType() == typeof(string) && (string)currentSortColumn != fieldName) currentSortDescending = false;
+            currentSortColumn = fieldName;
             SortListByField(fieldName);
         }
         else if (!string.IsNullOrEmpty(propName))
         {
+            if (currentSortColumn == null || currentSortColumn.GetType() == typeof(string) && (string)currentSortColumn != propName) currentSortDescending = false;
+            currentSortColumn = propName;
             SortListByProp(propName);
         }
     }
