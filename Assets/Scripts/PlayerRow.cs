@@ -7,31 +7,37 @@ public class PlayerRow : MonoBehaviour
 {
     public GameObject dataColumnPrefab;
 
-    public void SetHeader() {
+    public void SetHeader()
+    {
         CreateColumn("Pos");
-        CreateColumn("Name", 200, TMPro.TextAlignmentOptions.Left);
-        CreateColumn("OVR", 200);
-        foreach (PlayerStat playerStat in new Player(PlayerPosition.C).stats) {
+        CreateColumn("Name", 160, TMPro.TextAlignmentOptions.Left);
+        CreateColumn("OVR");
+        foreach (PlayerStat playerStat in new Player(PlayerPosition.C).stats)
+        {
             CreateColumn(playerStat.stat.abbreviation.ToUpper());
         }
-        GetComponent<Image>().color = new Color(0,0,0,0);
+        GetComponent<Image>().color = new Color(0, 0, 0, 0);
     }
 
-    public void SetPlayer(Player player, int rowIndex) {
+    public void SetPlayer(Player player, int rowIndex)
+    {
         CreateColumn(player.position.abbreviation.ToString());
-        CreateColumn(player.name, 200, TMPro.TextAlignmentOptions.Left);
+        CreateColumn(player.name, 160, TMPro.TextAlignmentOptions.Left);
         CreateColumn(player.stats.overall.ToString());
 
-        foreach (PlayerStat playerStat in player.stats) {
+        foreach (PlayerStat playerStat in player.stats)
+        {
             CreateColumn(playerStat.value.ToString());
         }
 
-        if (rowIndex % 2 == 0) {
-            GetComponent<Image>().color = new Color(0,0,0,0);
+        if (rowIndex % 2 == 0)
+        {
+            GetComponent<Image>().color = new Color(0, 0, 0, 0);
         }
     }
 
-    void CreateColumn(string value, float width = 56, TMPro.TextAlignmentOptions alignment = TMPro.TextAlignmentOptions.Center) {
+    void CreateColumn(string value, float width = 44, TMPro.TextAlignmentOptions alignment = TMPro.TextAlignmentOptions.Center)
+    {
         GameObject statColumn = Instantiate(dataColumnPrefab, transform);
         TMPro.TextMeshProUGUI colText = statColumn.GetComponent<TMPro.TextMeshProUGUI>();
         colText.text = value;
