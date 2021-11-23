@@ -11,6 +11,16 @@ public class Player
     public int age;
     public bool hasScholarship;
     public bool isRedshirt;
+    public int overall {
+        get {
+            return stats.overall;
+        }
+    }
+    public string positionAbbreviation {
+        get {
+            return position.abbreviation.ToString();
+        }
+    }
     public PlayerStats stats;
     public PlayerStats importantStats {
         get {

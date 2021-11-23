@@ -18,8 +18,8 @@ public class RosterViewer : MonoBehaviour
         if (gameData.currentSchool != null)
         {
             sortedPlayers = gameData.currentSchool.players;
-            SortList("overall");
-            ClearList();
+            SortListByProp("overall");
+            ClearList();            
             FillList();
         }
     }
@@ -36,28 +36,49 @@ public class RosterViewer : MonoBehaviour
             PlayerRow playerRow = Instantiate(playerRowPrefab, content);
             playerRow.SetPlayer(player, rowIndex);
             rowIndex++;
-        }
+        }        
     }
 
-    void OnSortEvent(Stat stat, string propName)
+    void OnSortEvent(Stat stat, string propName, string fieldName)
     {
-        if (string.IsNullOrEmpty(propName) && stat != null)
+        if (stat != null)
         {
             SortListByStat(stat);
         }
+        else if (!string.IsNullOrEmpty(fieldName))
+        {
+            SortListByField(fieldName);
+        }
+        else if (!string.IsNullOrEmpty(propName))
+        {
+            SortListByProp(propName);
+        }
     }
 
-    void SortList(string fieldName)
+    void SortListByField(string fieldName)
     {
-        Sort(player => (int)player.stats.GetType().GetProperty(fieldName).GetValue(player.stats));
+        if (fieldName == "name") {
+            Sort<string>(player => (string)player.GetType().GetField(fieldName).GetValue(player));
+        } else {
+            Sort<int>(player => (int)player.GetType().GetField(fieldName).GetValue(player));
+        }
+    }
+
+    void SortListByProp(string propName)
+    {
+        if (propName == "positionAbbreviation") {
+            Sort<string>(player => (string)player.GetType().GetProperty(propName).GetValue(player));
+        } else {
+            Sort<int>(player => (int)player.GetType().GetProperty(propName).GetValue(player));
+        }
     }
 
     void SortListByStat(Stat stat)
     {
-        Sort(player => player.stats.GetStat(stat).value);
+        Sort<int>(player => player.stats.GetStat(stat).value);
     }
 
-    void Sort(System.Func<Player, int> func)
+    void Sort<T>(System.Func<Player, T> func)
     {
         currentSortDescending = !currentSortDescending;
 
@@ -69,6 +90,7 @@ public class RosterViewer : MonoBehaviour
         {
             sortedPlayers = sortedPlayers.OrderBy(func).ToList();
         }
+        
         ClearList();
         FillList();
     }

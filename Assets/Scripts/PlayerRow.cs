@@ -6,18 +6,18 @@ public class PlayerRow : MonoBehaviour
 {
     public GameObject dataColumnPrefab;
 
-    public UnityEvent<Stat, string> sortEvent;
+    public UnityEvent<Stat, string, string> sortEvent; // stat, prop, field
 
     public void SetHeader()
     {
-        sortEvent = new UnityEvent<Stat, string>();
+        sortEvent = new UnityEvent<Stat, string, string>();
 
-        CreateColumn("Pos", action: () => sortEvent.Invoke(null, "position"));
-        CreateColumn("Name", 160, TMPro.TextAlignmentOptions.Left, action: () => sortEvent.Invoke(null, "name"));
-        CreateColumn("OVR", action: () => sortEvent.Invoke(null, "stats.overall"));
+        CreateColumn("Pos", action: () => sortEvent.Invoke(null, "positionAbbreviation", ""));
+        CreateColumn("Name", 160, TMPro.TextAlignmentOptions.Left, action: () => sortEvent.Invoke(null, "", "name"));
+        CreateColumn("OVR", action: () => sortEvent.Invoke(null, "overall", ""));
         foreach (PlayerStat playerStat in new Player(PlayerPosition.C).stats)
         {
-            CreateColumn(playerStat.stat.abbreviation.ToUpper(), action: () => sortEvent.Invoke(playerStat.stat, ""));
+            CreateColumn(playerStat.stat.abbreviation.ToUpper(), action: () => sortEvent.Invoke(playerStat.stat, "", ""));
         }
         GetComponent<Image>().color = new Color(0, 0, 0, 0);
     }
