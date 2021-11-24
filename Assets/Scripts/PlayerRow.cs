@@ -15,7 +15,7 @@ public class PlayerRow : MonoBehaviour
         CreateColumn("Pos", action: () => sortEvent.Invoke(null, "positionAbbreviation", ""));
         CreateColumn("Name", 160, TMPro.TextAlignmentOptions.Left, action: () => sortEvent.Invoke(null, "", "name"));
         CreateColumn("OVR", action: () => sortEvent.Invoke(null, "overall", ""));
-        foreach (PlayerStat playerStat in new Player(PlayerPosition.C).stats)
+        foreach (PlayerStat playerStat in new Player(PlayerPosition.C, 0f).stats)
         {
             CreateColumn(playerStat.stat.abbreviation.ToUpper(), action: () => sortEvent.Invoke(playerStat.stat, "", ""));
         }

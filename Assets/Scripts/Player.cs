@@ -27,10 +27,11 @@ public class Player
             return new PlayerStats(stats.FindAll(stat => position.importantStats.Contains(stat.stat)));
         }
     }
+    public float scale;
 
     static System.Random rand = new System.Random(DateTime.Now.Millisecond + DateTime.Now.Second);
 
-    public Player(PlayerPosition position)
+    public Player(PlayerPosition position, float scale)
     {
         this.name = RandomName.Generate(Sex.Male);
         this.year = 0;
@@ -38,12 +39,14 @@ public class Player
         this.position = position;
         this.origin = RandomCity.Generate();
         this.stats = new PlayerStats();
+        this.scale = scale;
         GenerateStats();
     }
 
     private int GenerateStatValue(int minValue = 65, int maxValue = 92)
     {
-        return Player.rand.Next(minValue, maxValue);
+        int result = (int)(Player.rand.Next(minValue, maxValue) * scale);
+        return result > 99 ? 99 : result;
     }
 
     private void IncreaseStatValues(List<Stat> stats)

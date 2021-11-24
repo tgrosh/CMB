@@ -11,6 +11,6 @@ public class PlayerGrade : MonoBehaviour
     public void SetPlayer(Player player) {
         position.text = player.position.abbreviation.ToString();
         playerName.text = player.name;
-        grade.text = player.importantStats.grade;
+        grade.text = player.overall.ToString();
     }
 }

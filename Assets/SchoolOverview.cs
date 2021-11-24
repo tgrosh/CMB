@@ -25,7 +25,7 @@ public class SchoolOverview : MonoBehaviour
     public void SetSchool()
     {
         foreach (Player player in getTopPlayers())
-        {
+        {            
             PlayerGrade playerGrade = Instantiate<PlayerGrade>(playerGradePrefab, topPlayersContainer);
             playerGrade.SetPlayer(player);
         }
@@ -37,7 +37,7 @@ public class SchoolOverview : MonoBehaviour
 
     private List<Player> getTopPlayers()
     {
-        return gameData.currentSchool.players.OrderByDescending(player => player.importantStats.overall).Take<Player>(6).ToList<Player>();
+        return gameData.currentSchool.players.OrderByDescending(player => player.overall).Take<Player>(6).ToList<Player>();
     }
 
     private int getOverallDefense()

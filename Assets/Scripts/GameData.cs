@@ -8,7 +8,7 @@ public class GameData : MonoBehaviour
     List<Conference> conferences = new List<Conference>();
     public School currentSchool;
 
-    System.Random rand;
+    System.Random rand = new System.Random(DateTime.Now.Millisecond + DateTime.Now.Second);
 
     public List<School> allSchools
     {
@@ -91,36 +91,36 @@ public class GameData : MonoBehaviour
     public List<Player> GenerateRosters()
     {
         List<Player> players = new List<Player>();
-        rand = new System.Random(DateTime.Now.Millisecond + DateTime.Now.Second);
+        float scale = ((float)rand.NextDouble() * .4f) + .8f; //between .8f and 1.2f
 
-        players.AddRange(GeneratePositionGroup(PlayerPosition.QB, 3));
-        players.AddRange(GeneratePositionGroup(PlayerPosition.HB, 4));
-        players.AddRange(GeneratePositionGroup(PlayerPosition.FB, 1));
-        players.AddRange(GeneratePositionGroup(PlayerPosition.WR, 7));
-        players.AddRange(GeneratePositionGroup(PlayerPosition.TE, 4));
-        players.AddRange(GeneratePositionGroup(PlayerPosition.T, 4));
-        players.AddRange(GeneratePositionGroup(PlayerPosition.G, 4));
-        players.AddRange(GeneratePositionGroup(PlayerPosition.C, 4));
-        players.AddRange(GeneratePositionGroup(PlayerPosition.DE, 5));
-        players.AddRange(GeneratePositionGroup(PlayerPosition.DT, 5));
-        players.AddRange(GeneratePositionGroup(PlayerPosition.ILB, 3));
-        players.AddRange(GeneratePositionGroup(PlayerPosition.OLB, 3));
-        players.AddRange(GeneratePositionGroup(PlayerPosition.CB, 7));
-        players.AddRange(GeneratePositionGroup(PlayerPosition.FS, 3));
-        players.AddRange(GeneratePositionGroup(PlayerPosition.SS, 3));
-        players.AddRange(GeneratePositionGroup(PlayerPosition.K, 1));
-        players.AddRange(GeneratePositionGroup(PlayerPosition.P, 1));
+        players.AddRange(GeneratePositionGroup(PlayerPosition.QB, 3, scale));
+        players.AddRange(GeneratePositionGroup(PlayerPosition.HB, 4, scale));
+        players.AddRange(GeneratePositionGroup(PlayerPosition.FB, 1, scale));
+        players.AddRange(GeneratePositionGroup(PlayerPosition.WR, 7, scale));
+        players.AddRange(GeneratePositionGroup(PlayerPosition.TE, 4, scale));
+        players.AddRange(GeneratePositionGroup(PlayerPosition.T, 4, scale));
+        players.AddRange(GeneratePositionGroup(PlayerPosition.G, 4, scale));
+        players.AddRange(GeneratePositionGroup(PlayerPosition.C, 4, scale));
+        players.AddRange(GeneratePositionGroup(PlayerPosition.DE, 5, scale));
+        players.AddRange(GeneratePositionGroup(PlayerPosition.DT, 5, scale));
+        players.AddRange(GeneratePositionGroup(PlayerPosition.ILB, 3, scale));
+        players.AddRange(GeneratePositionGroup(PlayerPosition.OLB, 3, scale));
+        players.AddRange(GeneratePositionGroup(PlayerPosition.CB, 7, scale));
+        players.AddRange(GeneratePositionGroup(PlayerPosition.FS, 3, scale));
+        players.AddRange(GeneratePositionGroup(PlayerPosition.SS, 3, scale));
+        players.AddRange(GeneratePositionGroup(PlayerPosition.K, 1, scale));
+        players.AddRange(GeneratePositionGroup(PlayerPosition.P, 1, scale));
 
         return players;
     }
 
-    public List<Player> GeneratePositionGroup(PlayerPosition position, int count)
+    public List<Player> GeneratePositionGroup(PlayerPosition position, int count, float scale)
     {
         List<Player> players = new List<Player>();
 
         for (int x = 0; x < count; x++)
         {
-            players.Add(new Player(position));
+            players.Add(new Player(position, scale));
         }
 
         return players;
