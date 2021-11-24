@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public class SchoolChooser : MonoBehaviour
 {
+    public TMPro.TextMeshProUGUI schoolName;
+    public TMPro.TextMeshProUGUI schoolMascotName;
+    public Image schoolLogo;
+    public SchoolGrades schoolGrades;
+
     public GameData gameData;
     public UIEvents uIEvents;
     public int currentSchoolIndex;
@@ -17,22 +22,23 @@ public class SchoolChooser : MonoBehaviour
     }
 
     private void OnEnable() {
-        ShowSchool();        
+        if (gameData.allSchools != null && gameData.allSchools.Count > 0) {
+            ShowSchool();
+        }
     }
 
     void ShowSchool() {
         School currentSchool = gameData.allSchools[currentSchoolIndex];
 
-        transform.Find("SchoolName").GetComponent<TMPro.TextMeshProUGUI>().text = currentSchool.name;
+        schoolName.text = currentSchool.name;
+        schoolMascotName.gameObject.SetActive(false);
+        schoolMascotName.text = currentSchool.mascot.name;
+        schoolMascotName.color = currentSchool.primaryColor;
+        schoolMascotName.outlineColor = GetLuminance(currentSchool.primaryColor) > .15f ? Color.black : Color.white;
+        schoolMascotName.gameObject.SetActive(true);        
+        schoolLogo.sprite = currentSchool.mascot.logo;
 
-        TMPro.TextMeshProUGUI tm = transform.Find("SchoolMascot").GetComponent<TMPro.TextMeshProUGUI>();
-        tm.gameObject.SetActive(false);
-        tm.text = currentSchool.mascot.name;
-        tm.color = currentSchool.primaryColor;
-        tm.outlineColor = GetLuminance(currentSchool.primaryColor) > .15f ? Color.black : Color.white;
-        tm.gameObject.SetActive(true);
-        
-        transform.Find("Logo").GetComponent<Image>().sprite = currentSchool.mascot.logo;
+        schoolGrades.SetGrades(currentSchool);
     }
 
     float GetLuminance(Color color) {
