@@ -7,13 +7,29 @@ public class Player
     public string name;
     public PlayerPosition position;
     public string origin;
-    public int year;
+    public int year = 0;
+    public string classYear {
+        get {
+            switch (year) {
+                case 0: {
+                    return "Fr";
+                }
+                case 1: {
+                    return "So";
+                }
+                case 2: {
+                    return "Jr";
+                }
+            }            
+            return "Sr";
+        }
+    }
     public int age;
     public bool hasScholarship;
     public bool isRedshirt;
     public int overall {
         get {
-            return stats.overall;
+            return importantStats.overall;
         }
     }
     public string positionAbbreviation {
@@ -29,12 +45,11 @@ public class Player
     }
     public float scale;
 
-    static System.Random rand = new System.Random(DateTime.Now.Millisecond + DateTime.Now.Second);
+    static System.Random rand = new System.Random(((int)DateTime.Now.Ticks));
 
     public Player(PlayerPosition position, float scale)
     {
         this.name = RandomName.Generate(Sex.Male);
-        this.year = 0;
         this.age = Player.rand.Next(18, 20);
         this.position = position;
         this.origin = RandomCity.Generate();
@@ -43,7 +58,13 @@ public class Player
         GenerateStats();
     }
 
-    private int GenerateStatValue(int minValue = 65, int maxValue = 92)
+    public Player(PlayerPosition position, float scale, int year) : this(position, scale) {
+        for (int yr = 0; yr < year; yr++) {
+            Progress();
+        }
+    }
+
+    private int GenerateStatValue(int minValue = 60, int maxValue = 77, float scale = 1f)
     {
         int result = (int)(Player.rand.Next(minValue, maxValue) * scale);
         return result > 99 ? 99 : result;
@@ -53,7 +74,7 @@ public class Player
     {
         foreach (Stat stat in stats)
         {
-            this.stats.GetStat(stat).value = GenerateStatValue(75, 95);
+            this.stats.GetStat(stat).value = GenerateStatValue(72, 84, scale);
         }
     }
 
@@ -61,7 +82,17 @@ public class Player
     {
         foreach (Stat stat in stats)
         {
-            this.stats.GetStat(stat).value = GenerateStatValue(62, 75);
+            this.stats.GetStat(stat).value = GenerateStatValue(40, 64, scale);
+        }
+    }
+
+    public void Progress() {
+        year++;
+        foreach (PlayerStat stat in stats) {
+            stat.value = GenerateStatValue(stat.value, stat.value + 4); //increase by up to 3
+        }
+        foreach (PlayerStat stat in importantStats) {
+            stat.value = GenerateStatValue(stat.value, stat.value + 5); //increase by up to 4 more
         }
     }
 
@@ -74,41 +105,41 @@ public class Player
 
     private void GenerateBaseStats()
     {
-        stats.Add(new PlayerStat(Stat.Speed, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.Acceleration, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.Agility, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.Strength, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.Awareness, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.Stamina, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.Injury, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.ThrowPower, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.ShortThrowAccuracy, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.MediumThrowAccuracy, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.DeepThrowAccuracy, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.Playaction, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.ThrowingOnTheRun, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.BreakTackle, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.Carrying, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.Elusiveness, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.Catching, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.CatchInTraffic, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.ShortRouteRunning, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.MediumRouteRunning, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.DeepRouteRunning, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.Release, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.PassBlock, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.RunBlock, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.LeadBlock, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.ImpactBlocking, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.PlayRecognition, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.Tackle, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.HitPower, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.BlockShedding, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.ManCoverage, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.ZoneCoverage, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.Press, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.KickAccuracy, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.KickPower, GenerateStatValue()));
-        stats.Add(new PlayerStat(Stat.KickReturn, GenerateStatValue()));
+        stats.Add(new PlayerStat(Stat.Speed, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.Acceleration, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.Agility, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.Strength, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.Awareness, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.Stamina, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.Injury, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.ThrowPower, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.ShortThrowAccuracy, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.MediumThrowAccuracy, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.DeepThrowAccuracy, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.Playaction, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.ThrowingOnTheRun, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.BreakTackle, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.Carrying, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.Elusiveness, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.Catching, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.CatchInTraffic, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.ShortRouteRunning, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.MediumRouteRunning, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.DeepRouteRunning, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.Release, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.PassBlock, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.RunBlock, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.LeadBlock, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.ImpactBlocking, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.PlayRecognition, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.Tackle, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.HitPower, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.BlockShedding, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.ManCoverage, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.ZoneCoverage, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.Press, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.KickAccuracy, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.KickPower, GenerateStatValue(scale: scale)));
+        stats.Add(new PlayerStat(Stat.KickReturn, GenerateStatValue(scale: scale)));
     }
 }

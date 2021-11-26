@@ -104,7 +104,7 @@ public class GameData : MonoBehaviour
         players.AddRange(GeneratePositionGroup(PlayerPosition.DE, 5, scale));
         players.AddRange(GeneratePositionGroup(PlayerPosition.DT, 5, scale));
         players.AddRange(GeneratePositionGroup(PlayerPosition.ILB, 3, scale));
-        players.AddRange(GeneratePositionGroup(PlayerPosition.OLB, 3, scale));
+        players.AddRange(GeneratePositionGroup(PlayerPosition.OLB, 5, scale));
         players.AddRange(GeneratePositionGroup(PlayerPosition.CB, 7, scale));
         players.AddRange(GeneratePositionGroup(PlayerPosition.FS, 3, scale));
         players.AddRange(GeneratePositionGroup(PlayerPosition.SS, 3, scale));
@@ -120,7 +120,7 @@ public class GameData : MonoBehaviour
 
         for (int x = 0; x < count; x++)
         {
-            players.Add(new Player(position, scale));
+            players.Add(new Player(position, scale, rand.Next(0, 4)));
         }
 
         return players;
