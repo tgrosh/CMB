@@ -14,6 +14,11 @@ public class School
             return (int)players.Select(player => player.overall).Average();
         }
     }
+    public int ranking {
+        get {
+            return Rankings.GetSchoolRanking(this);
+        }
+    }
 
     public List<Player> players;
 

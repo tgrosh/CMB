@@ -9,6 +9,7 @@ public class SchoolChooser : MonoBehaviour
     public TMPro.TextMeshProUGUI schoolMascotName;
     public Image schoolLogo;
     public SchoolGrades schoolGrades;
+    public RankingPanel rankingPanel;
 
     public UIEvents uIEvents;
     public int currentSchoolIndex;
@@ -38,6 +39,7 @@ public class SchoolChooser : MonoBehaviour
         schoolLogo.sprite = currentSchool.mascot.logo;
 
         schoolGrades.SetGrades(currentSchool);
+        rankingPanel.SetRanking(Rankings.GetSchoolRanking(currentSchool));
     }
 
     float GetLuminance(Color color) {
