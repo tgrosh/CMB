@@ -10,7 +10,6 @@ public class SchoolChooser : MonoBehaviour
     public Image schoolLogo;
     public SchoolGrades schoolGrades;
 
-    public GameData gameData;
     public UIEvents uIEvents;
     public int currentSchoolIndex;
 
@@ -22,13 +21,13 @@ public class SchoolChooser : MonoBehaviour
     }
 
     private void OnEnable() {
-        if (gameData.allSchools != null && gameData.allSchools.Count > 0) {
+        if (GameData.allSchools != null && GameData.allSchools.Count > 0) {
             ShowSchool();
         }
     }
 
     void ShowSchool() {
-        School currentSchool = gameData.allSchools[currentSchoolIndex];
+        School currentSchool = GameData.allSchools[currentSchoolIndex];
 
         schoolName.text = currentSchool.name;
         schoolMascotName.gameObject.SetActive(false);
@@ -46,7 +45,7 @@ public class SchoolChooser : MonoBehaviour
     }
     public void SelectNextSchool() {
         currentSchoolIndex++;
-        if (currentSchoolIndex >= gameData.allSchools.Count) {
+        if (currentSchoolIndex >= GameData.allSchools.Count) {
             currentSchoolIndex = 0;
         }
         ShowSchool();
@@ -55,12 +54,12 @@ public class SchoolChooser : MonoBehaviour
     public void SelectPrevSchool() {
         currentSchoolIndex--;
         if (currentSchoolIndex < 0) {
-            currentSchoolIndex = gameData.allSchools.Count - 1;
+            currentSchoolIndex = GameData.allSchools.Count - 1;
         }
         ShowSchool();
     }
 
     public void ChooseCurrentSchool() {
-        uIEvents.SetSchool(gameData.allSchools[currentSchoolIndex]);
+        uIEvents.SetSchool(GameData.allSchools[currentSchoolIndex]);
     }
 }

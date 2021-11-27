@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class UIEvents : MonoBehaviour
 {
-    public GameData gameData;
     public Canvas schoolChooser;
     public Canvas schoolOverview;
     public Canvas schoolRoster;
@@ -36,7 +35,7 @@ public class UIEvents : MonoBehaviour
     }
 
     public void GenerateGameData() {
-        gameData.GenerateConferencesAndSchools();
+        GameData.GenerateConferencesAndSchools();
     }
 
     public void ShowSchoolChooser() {
@@ -55,7 +54,7 @@ public class UIEvents : MonoBehaviour
     }
 
     public void SetSchool(School school) {
-        gameData.SetCurrentSchool(school);
+        GameData.SetCurrentSchool(school);
         ShowSchoolOverview();
     }
 }

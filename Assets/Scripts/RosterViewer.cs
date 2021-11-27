@@ -7,7 +7,6 @@ public class RosterViewer : MonoBehaviour
 {
     public Transform content;
     public PlayerRow playerRowPrefab;
-    public GameData gameData;
     public SchoolGrades schoolGrades;
 
     List<Player> sortedPlayers;
@@ -17,10 +16,10 @@ public class RosterViewer : MonoBehaviour
 
     private void OnEnable()
     {
-        if (gameData.currentSchool != null)
+        if (GameData.currentSchool != null)
         {
-            sortedPlayers = gameData.currentSchool.players;
-            schoolGrades.SetGrades(gameData.currentSchool);
+            sortedPlayers = GameData.currentSchool.players;
+            schoolGrades.SetGrades(GameData.currentSchool);
             
             SortListByProp("overall");
             ClearList();            

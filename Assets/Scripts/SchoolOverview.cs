@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class SchoolOverview : MonoBehaviour
 {
-    public GameData gameData;
     public Image background;
     public Transform topPlayersContainer;
     public PlayerGrade playerGradePrefab;
@@ -15,7 +14,7 @@ public class SchoolOverview : MonoBehaviour
 
     private void OnEnable()
     {
-        if (this.gameData.currentSchool == null) return;
+        if (GameData.currentSchool == null) return;
 
         SetSchool();
     }
@@ -28,11 +27,11 @@ public class SchoolOverview : MonoBehaviour
             playerGrade.SetPlayer(player);
         }
 
-        schoolGrades.SetGrades(gameData.currentSchool);
+        schoolGrades.SetGrades(GameData.currentSchool);
     }
 
     private List<Player> getTopPlayers()
     {
-        return gameData.currentSchool.players.OrderByDescending(player => player.overall).Take<Player>(6).ToList<Player>();
+        return GameData.currentSchool.players.OrderByDescending(player => player.overall).Take<Player>(6).ToList<Player>();
     }
 }

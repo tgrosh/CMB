@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class School
@@ -8,6 +9,11 @@ public class School
     public Mascot mascot;
     public Color primaryColor;
     public Color secondaryColor;
+    public int overall {
+        get {
+            return (int)players.Select(player => player.overall).Average();
+        }
+    }
 
     public List<Player> players;
 

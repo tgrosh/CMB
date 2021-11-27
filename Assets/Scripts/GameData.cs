@@ -5,12 +5,18 @@ using UnityEngine;
 
 public class GameData : MonoBehaviour
 {
-    List<Conference> conferences = new List<Conference>();
-    public School currentSchool;
+    public static School currentSchool;
 
-    System.Random rand = new System.Random(DateTime.Now.Millisecond + DateTime.Now.Second);
+    private static List<Conference> conferences = new List<Conference>();
+    private static System.Random rand = new System.Random(DateTime.Now.Millisecond + DateTime.Now.Second);    
+    private static GameData gameData; // keep the static reference private
+     
+    void Awake()
+    {
+        gameData = this;
+    }
 
-    public List<School> allSchools
+    public static List<School> allSchools
     {
         get
         {
@@ -18,17 +24,17 @@ public class GameData : MonoBehaviour
         }
     }
 
-    public School GetSchool(string name)
+    public static School GetSchool(string name)
     {
         return allSchools.Find(school => school.name == name);
     }
 
-    public void SetCurrentSchool(School currentSchool)
+    public static void SetCurrentSchool(School currentSchool)
     {
-        this.currentSchool = currentSchool;
+        GameData.currentSchool = currentSchool;
     }
 
-    public void GenerateConferencesAndSchools()
+    public static void GenerateConferencesAndSchools()
     {
         conferences.Add(new Conference()
         {
@@ -88,7 +94,7 @@ public class GameData : MonoBehaviour
         });
     }
 
-    public List<Player> GenerateRosters()
+    public static List<Player> GenerateRosters()
     {
         List<Player> players = new List<Player>();
         float scale = ((float)rand.NextDouble() * .4f) + .8f; //between .8f and 1.2f
@@ -114,7 +120,7 @@ public class GameData : MonoBehaviour
         return players;
     }
 
-    public List<Player> GeneratePositionGroup(PlayerPosition position, int count, float scale)
+    public static List<Player> GeneratePositionGroup(PlayerPosition position, int count, float scale)
     {
         List<Player> players = new List<Player>();
 
