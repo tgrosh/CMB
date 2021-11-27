@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +9,11 @@ public class RosterViewer : MonoBehaviour
     public Transform content;
     public PlayerRow playerRowPrefab;
     public SchoolGrades schoolGrades;
+    public TMPro.TextMeshProUGUI positionFilterLabel;
 
     List<Player> sortedPlayers;
+    PlayerPositionAbbreviation[] positions = (PlayerPositionAbbreviation[])Enum.GetValues(typeof(PlayerPositionAbbreviation));
+    int currentPosition = -1;
 
     bool currentSortDescending = false;
     object currentSortColumn;
@@ -23,18 +27,18 @@ public class RosterViewer : MonoBehaviour
             
             SortListByProp("overall");
             ClearList();            
-            FillList();
+            FillList(sortedPlayers);
         }
     }
 
-    void FillList()
+    void FillList(List<Player> players)
     {
         PlayerRow headerRow = Instantiate(playerRowPrefab, content);
         headerRow.SetHeader();
         headerRow.sortEvent.AddListener(OnSortEvent);
 
         int rowIndex = 0;
-        foreach (Player player in sortedPlayers)
+        foreach (Player player in players)
         {
             PlayerRow playerRow = Instantiate(playerRowPrefab, content);
             playerRow.SetPlayer(player, rowIndex);
@@ -101,7 +105,7 @@ public class RosterViewer : MonoBehaviour
         }
         
         ClearList();
-        FillList();
+        FillList(sortedPlayers);
     }
 
     void ClearList()
@@ -110,5 +114,32 @@ public class RosterViewer : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
+    }
+
+    void FilterList() {
+        ClearList();
+        if (currentPosition == -1) {
+            FillList(sortedPlayers);
+            positionFilterLabel.text = "All Positions";
+        } else {
+            FillList(sortedPlayers.Where(player => player.position.abbreviation == positions[currentPosition]).ToList());
+            positionFilterLabel.text = positions[currentPosition].ToString();
+        }
+    }
+
+    public void SelectNextPosition() {
+        currentPosition++;
+        if (currentPosition > positions.Length - 1) {
+            currentPosition = -1;
+        }
+        FilterList();        
+    }
+
+    public void SelectPrevPosition() {
+        currentPosition--;
+        if (currentPosition < -1) {
+            currentPosition = positions.Length - 1;
+        }
+        FilterList();
     }
 }
